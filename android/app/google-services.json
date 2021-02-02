@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "895495273289",
+    "project_id": "todo-84a12",
+    "storage_bucket": "todo-84a12.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:895495273289:android:11eeb36dc36e2ab517f898",
+        "android_client_info": {
+          "package_name": "com.elioscama.test_firebase_note_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "895495273289-sqc2q66l2c9n45m4og0cli3mg1nkjs76.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTvPkgCmOFT5wnx8pU0ge2XbpmDHlC2_A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "895495273289-sqc2q66l2c9n45m4og0cli3mg1nkjs76.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
