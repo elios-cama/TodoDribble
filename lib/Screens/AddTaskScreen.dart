@@ -5,13 +5,14 @@ import 'package:test_firebase_note_app/constants.dart';
 import 'package:test_firebase_note_app/components/time_button.dart';
 import 'package:test_firebase_note_app/components/category_button.dart';
 import 'package:intl/intl.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 class AddTaskScreen extends StatefulWidget {
   @override
   _AddTaskScreenState createState() => _AddTaskScreenState();
 }
 
 class _AddTaskScreenState extends State<AddTaskScreen> {
+  final _firestore = FirebaseFirestore.instance;
   String title;
   bool importantButtonState = true;
   bool plannedButtonState = false;
@@ -269,11 +270,18 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                         fit: BoxFit.cover)),
                 child: FlatButton(
                     onPressed: () {
-                      print(title);
-                      print(type);
-                      print(category);
-                      print(dayDate);
-                      print(_dayTime);
+                      // print(title);
+                      // print(type);
+                      // print(category);
+                      // print(dayDate);
+                      // print(_dayTime);
+                      _firestore.collection('todos').add({
+                        'title' : title,
+                        'type' : type,
+                        'date' : dayDate,
+                        'time' : _dayTime,
+                        'category' : category
+                      });
                       Navigator.pop(context);
                       
                       
