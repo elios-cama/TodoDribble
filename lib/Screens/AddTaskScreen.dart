@@ -101,6 +101,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                       fontSize: 40,
                       fontWeight: FontWeight.bold)),
               TextField(
+                style: TextStyle(color: Colors.grey.shade700) ,
                 decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
                       borderSide:
@@ -250,7 +251,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                         fonction: () => setState(() {
                           setCategoryButtonState();
                           runButtonState = !runButtonState;
-                          category = 'Workout';
+                          category = 'Run';
                         }),
                         borderColor: runButtonState
                             ? Colors.grey.shade700
