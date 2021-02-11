@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'AddTaskScreen.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:test_firebase_note_app/components/todo_card.dart';
@@ -43,6 +44,10 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     }
   }
+  Future<void> _signOut() async {
+                    await _auth.signOut();
+                    Navigator.pop(context);
+                  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,13 +61,14 @@ class _HomeScreenState extends State<HomeScreen> {
           actions: [
             Padding(
               padding: const EdgeInsets.only(top: 30, right: 15),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(15.0),
-                child: Image.asset(
-                  'lib/images/photomdb.jpg',
-                  height: 50,
-                  width: 50,
-                  fit: BoxFit.cover,
+              child: FlatButton(
+                onPressed:(){
+                  _signOut();
+                },
+                child: Icon(
+                  FontAwesomeIcons.signOutAlt,
+                  size: 30,
+                  color: Colors.white,
                 ),
               ),
             )
@@ -70,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
           elevation: 0,
           title: Padding(
             padding: const EdgeInsets.only(top: 30),
-            child: Text("Task King",
+            child: Text("To do List",
                 style: TextStyle(
                     fontSize: 35,
                     fontWeight: FontWeight.bold,
@@ -100,12 +106,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     final todoDate = todo.data()['date'];
                     final todoTime = todo.data()['time'];
                     final todoCategory = todo.data()['category'];
-                    final todoWidget = TodoCard(todoTime, todoTitle, todoCategory);
+                    final todoWidget =
+                        TodoCard(todoTime, todoTitle, todoCategory, todoDate);
                     todoWidgets.add(todoWidget);
                   }
                   return Expanded(
                     child: ListView(
-                      padding: EdgeInsets.symmetric(horizontal: 10, vertical : 20),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                       children: todoWidgets,
                     ),
                   );

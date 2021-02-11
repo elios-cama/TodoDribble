@@ -6,9 +6,10 @@ class TodoCard extends StatefulWidget {
   final String title;
   final String category;
   final String time;
+  final String date;
   bool isDone = false;
 
-  TodoCard(this.time, this.title, this.category);
+  TodoCard(this.time, this.title, this.category, this.date);
 
   @override
   _TodoCardState createState() => _TodoCardState();
@@ -149,9 +150,15 @@ class _TodoCardState extends State<TodoCard> {
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
                   ),
-                  Text(
-                    widget.time,
-                    style: TextStyle(fontSize: 15, color: Colors.grey.shade700),
+
+                  Column(
+                    children: [
+                      Text(
+                        widget.time,
+                        style: TextStyle(fontSize: 15, color: Colors.grey.shade700),
+                      ),
+                      Text(widget.date)
+                    ],
                   )
                 ],
               ),

@@ -33,6 +33,7 @@ class AuthPage extends StatelessWidget {
                       color: Colors.grey,
                       fontSize: 17,
                       fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
                 ),
               ),
               LogContainer(FontAwesomeIcons.facebook, 'Continue with Facebook',
