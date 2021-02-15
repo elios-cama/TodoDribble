@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:test_firebase_note_app/Screens/home_screen.dart';
 import 'Login_Screen.dart';
 import 'package:test_firebase_note_app/components/log_container.dart';
+import 'package:test_firebase_note_app/google_sign_in.dart';
 
 class AuthPage extends StatelessWidget {
   @override
@@ -38,8 +40,19 @@ class AuthPage extends StatelessWidget {
               ),
               LogContainer(FontAwesomeIcons.facebook, 'Continue with Facebook',
                   Colors.blue, null),
-              LogContainer(FontAwesomeIcons.google, 'Continue with Google',
-                  Colors.white, null),
+              LogContainer(
+                  FontAwesomeIcons.google, 'Continue with Google', Colors.white,
+                  () {
+                signInWithGoogle().whenComplete(() {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return HomeScreen();
+                      },
+                    ),
+                  );
+                });
+              }),
               LogContainer(FontAwesomeIcons.envelope, 'Continue with email',
                   Colors.purple, () {
                 Navigator.push(

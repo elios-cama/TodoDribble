@@ -3,6 +3,7 @@ import 'package:test_firebase_note_app/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'home_screen.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -24,7 +25,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         backgroundColor: Colors.transparent,
         body: ModalProgressHUD(
           inAsyncCall: showSpinner,
-                  child: Padding(
+          child: Padding(
             padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
             child: SingleChildScrollView(
               child: Column(
@@ -78,26 +79,40 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       borderRadius: BorderRadius.all(Radius.circular(32.0)),
                     ),
                     child: FlatButton(
+                      // onPressed: () async {
+                      //   setState(() {
+                      //     showSpinner = true;
+                      //   });
+                      //   try {
+                      //     final newUser =
+                      //         await _auth.createUserWithEmailAndPassword(
+                      //             email: email, password: password);
+                      //     if (newUser != null) {
+                      //       Navigator.push(
+                      //           context,
+                      //           MaterialPageRoute(
+                      //               builder: (context) => HomeScreen()));
+                      //     }
+                      //     setState(() {
+                      //       showSpinner = false;
+                      //     });
+                      //   } catch (e) {
+                      //     print(e);
+                      //   }
+                      // },
                       onPressed: () async {
-                        setState(() {
-                          showSpinner = true;
-                        });
-                        try {
-                          final newUser =
-                              await _auth.createUserWithEmailAndPassword(
-                                  email: email, password: password);
-                          if (newUser != null) {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => HomeScreen()));
-                          }
-                          setState(() {
-                            showSpinner = false;
-                          });
-                        } catch (e) {
-                          print(e);
-                        }
+                        // Register user by firebase auth
+                        final User user = (await FirebaseAuth.instance
+                                .createUserWithEmailAndPassword(
+                                    email: email, password: password))
+                            .user;
+
+                        /* store users data in firestore database */
+                        await FirebaseFirestore.instance
+                            .collection("users")
+                            .doc(user.uid);
+
+                         Navigator.push(context,  MaterialPageRoute(builder: (context) => HomeScreen()));
                       },
                       child: Text(
                         'OK',
