@@ -86,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         try{
                           final newUser = await  _auth.signInWithEmailAndPassword(email: email, password: password);
                           if(newUser != null){
-                            Navigator.push(context,  MaterialPageRoute(builder: (context) => HomeScreen()));
+                            await Navigator.push(context,  MaterialPageRoute(builder: (context) => HomeScreen()));
                           }
                           setState(() {
                           showspinner = false;

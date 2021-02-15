@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void getCurrentUser() async {
     try {
-      final user = await _auth.currentUser;
+      final user = _auth.currentUser;
       if (user != null) {
         loggedInUser = user;
       }
@@ -37,17 +37,17 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  void TodosStream() async {
-    await for (var snapchot in _firestore.collection('todos').snapshots()) {
-      for (var todos in snapchot.docs) {
-        print(todos.data());
-      }
-    }
-  }
+  // void TodosStream() async {
+  //   await for (var snapchot in _firestore.collection('todos').snapshots()) {
+  //     for (var todos in snapchot.docs) {
+  //       print(todos.data());
+  //     }
+  //   }
+  // }
   Future<void> _signOut() async {
-                    await _auth.signOut();
-                    Navigator.pop(context);
-                  }
+    await _auth.signOut();
+    Navigator.pop(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Padding(
               padding: const EdgeInsets.only(top: 30, right: 15),
               child: FlatButton(
-                onPressed:(){
+                onPressed: () {
                   _signOut();
                 },
                 child: Icon(
@@ -89,7 +89,10 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             children: [
               StreamBuilder<QuerySnapshot>(
-                stream: _firestore.collection('todos').snapshots(),
+                stream: _firestore
+                    .collection("todos")
+                    .where("author", isEqualTo: loggedInUser.uid)
+                    .snapshots(),
                 builder: (context, snapchot) {
                   if (!snapchot.hasData) {
                     return Center(

@@ -15,6 +15,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _auth = FirebaseAuth.instance;
   String email;
   String password;
+  String userName;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -57,6 +58,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           },
                           decoration: kTextFieldDecoration.copyWith(
                               hintText: 'Enter your email')),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      TextField(
+                          
+                          textAlign: TextAlign.center,
+                          onChanged: (value) {
+                            userName = value;
+                          },
+                          decoration: kTextFieldDecoration.copyWith(
+                              hintText: 'Enter your User name')),
                       SizedBox(
                         height: 10,
                       ),
@@ -110,7 +122,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         /* store users data in firestore database */
                         await FirebaseFirestore.instance
                             .collection("users")
-                            .doc(user.uid);
+                            .doc(user.uid).set({ 'username': userName});
+                        print(user.uid);
 
                          Navigator.push(context,  MaterialPageRoute(builder: (context) => HomeScreen()));
                       },

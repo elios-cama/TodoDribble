@@ -8,6 +8,7 @@ class TodoCard extends StatefulWidget {
   final String time;
   final String date;
   bool isDone = false;
+  
 
   TodoCard(this.time, this.title, this.category, this.date);
 
@@ -16,6 +17,9 @@ class TodoCard extends StatefulWidget {
 }
 
 class _TodoCardState extends State<TodoCard> {
+  
+
+
    final _firestore = FirebaseFirestore.instance;
   IconData icon;
   Color iconBackgroundColor;

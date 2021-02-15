@@ -6,12 +6,32 @@ import 'package:test_firebase_note_app/components/time_button.dart';
 import 'package:test_firebase_note_app/components/category_button.dart';
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 class AddTaskScreen extends StatefulWidget {
   @override
   _AddTaskScreenState createState() => _AddTaskScreenState();
 }
 
 class _AddTaskScreenState extends State<AddTaskScreen> {
+  final _auth = FirebaseAuth.instance;
+  User loggedInUser;
+  @override
+  void initState() {
+    super.initState();
+
+    getCurrentUser();
+  }
+
+  void getCurrentUser() async {
+    try {
+      final user = await _auth.currentUser;
+      if (user != null) {
+        loggedInUser = user;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
   final _firestore = FirebaseFirestore.instance;
   String title;
   bool importantButtonState = true;
@@ -281,7 +301,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                         'type' : type,
                         'date' : dayDate,
                         'time' : _dayTime,
-                        'category' : category
+                        'category' : category,
+                        'author' : loggedInUser.uid,
+                        //'id' : doc.id
+                      
                       });
                       Navigator.pop(context);
                       
